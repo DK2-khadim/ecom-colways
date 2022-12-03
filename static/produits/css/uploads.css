@@ -1,0 +1,44 @@
+input[type="file"] {
+  display: block;
+}
+.imageThumb {
+  height: 300px;
+  width: 300px;
+  border: 2px solid;
+  padding: 1px;
+  cursor: pointer;
+}
+.pip {
+  display: inline-block;
+  margin: 10px 10px 0 0;
+}
+.remove {
+  display: block;
+  background:red;
+  border: 1px solid black;
+  color: white;
+  text-align: center;
+  cursor: pointer;
+}
+.remove:hover {
+  background: white;
+  color: red;
+}
+
+/*
+  Scrollbar dans les selects
+*/
+
+.nice-select .list {
+  border-radius: 0px;
+  height: 200px;
+  overflow-y: auto;
+}
+
+/*
+  Masquer les differentes tailles 
+*/
+
+#autre_taille, #taille_chaussure, #tailles_vetements, #marque_voiture, #marque_vetements, #taille_vetements, #marque_electronique{
+  display: none;
+}

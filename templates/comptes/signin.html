@@ -1,0 +1,44 @@
+{% extends 'comptes/navbar.html' %}
+
+{% block content %}
+<hr>
+<div class="container" style="margin-bottom: 20px;">
+    <div class="row justify-content-center">
+    <div class="card col-sm-5">
+        <article class="card-body">
+            <a href="{% url 'signup' %}" class="float-right btn btn-outline-primary">S'inscrire</a>
+            <h4 class="card-title mb-4 mt-1" style="color: orange;">Se connecter</h4>
+            <p>
+                <a class="btn btn-block btn-outline-primary"> <i class="fa fa-facebook"></i> Facebook </a>
+                <a class="btn btn-block btn-outline-danger"> <i class="fa fa-google"></i> Google </a>
+            </p>
+            <hr>
+            <form method="POST" action="{% url 'signin' %}">
+            {% csrf_token %}
+            {% if error %}
+            <div class="alert alert-danger" role="alert">
+            Veuillez entrer un email ou mot de passe correct !
+            </div>
+            {% endif %}
+            <div class="form-group">
+                <input name="email" class="form-control" type="email" placeholder=" Your email">
+            </div> <!-- form-group// -->
+            <div class="form-group">
+                <input class="form-control" type="password" name="password" placeholder=" password">
+            </div> <!-- form-group// -->                                      
+            <div class="row">
+                <div class="col-md-6">
+                    <div class="form-group">
+                        <button type="submit" class="btn btn-primary btn-block"> Se connecter  </button>
+                    </div> <!-- form-group// -->
+                </div>
+                <div class="col-md-6 text-right">
+                    <a class="small" href="{% url 'password_reset' %}">Mot de passe oublié</a>
+                </div>                                            
+            </div> <!-- .row// -->                                                                  
+        </form>
+        </article>
+    </div> <!-- card.// -->
+    </div>
+</div>
+{% endblock content %}

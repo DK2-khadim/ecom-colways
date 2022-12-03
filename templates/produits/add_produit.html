@@ -1,0 +1,320 @@
+{% extends 'membres/base.html' %}
+{% load static %}
+{% block content %}
+<div class="container">
+    <div class="shadow text-warning mt-2 mb-2 pt-3 pb-3 pl-3" style="font-size: 18px;font-weight: bold;">Publier un produit</div>
+</div>
+    <div class="container">
+    <div class="row">
+        <div class="col-md-10">
+            <form method="POST" action="{% url 'add_product' %}" enctype="multipart/form-data">
+            {% csrf_token %}
+            <h6 class="mt-2 mb-2 ml-2"><span class="text-danger" style="text-decoration: underline;">Remarque:</span> Seules les 3 premieres photos seront enregistrées !</h6>
+            <div class="custom-file field mb-3">
+                <input type="file" class="custom-file-input" id="files" name="files" multiple />
+                <label class="custom-file-label" for="validatedCustomFile"><i class="fa fa-camera"></i> Cliquez pour ajouter des photos <span class="badge badge-danger"> maximum 3</span></label>
+            </div>
+            <div class="row mt-2">
+                <div class="col-md-6">
+                    <div class="form-group">
+                        <label class="sr-only" for="inlineFormInputGroup">Ex: Chemise</label>
+                        <div class="input-group mb-2">
+                          <div class="input-group-prepend">
+                            <div class="input-group-text">Nom </div>
+                          </div>
+                          <input type="text" class="form-control" id="inlineFormInputGroup" placeholder=" Ex : Chemise " name="nom">
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <div class="form-group">
+                        <label class="sr-only" for="inlineFormInputGroup">Ex: 5000</label>
+                        <div class="input-group mb-2">
+                          <div class="input-group-prepend">
+                            <div class="input-group-text">Prix en Franc CFA</div>
+                          </div>
+                          <input type="tel" class="form-control" id="inlineFormInputGroup" placeholder=" Ex : 5000 " name="prix">
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-6">
+                    <div class="form-group">
+                        <label>Catégorie</label><br>
+                        <select name="categorie" class="wide form-control">
+                            <option>Choisir la catégorie</option>
+                            <option value="Homme">Homme</option>
+                            <option value="Femme">Femme</option>
+                            <option value="Vetements">Vetements</option>
+                            <option value="Enfants">Enfants</option>
+                            <option value="Electronique">Electronique</option>
+                            <option value="Accessoires">Accessoires</option>
+                            <option value="Maison">Maison</option>
+                            <option value="Voiture">Voiture</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <div class="form-group mt-2" id="taille">
+                    <label>Taille</label><br>
+                    <div class="form-check form-check-inline">
+                        <input class="form-check-input" type="radio" name="choixTaille" id="tchaussure" value="taille_chaussure">
+                        <label class="form-check-label">Chaussure</label>
+                      </div>
+                      <div class="form-check form-check-inline">
+                        <input class="form-check-input" type="radio" name="choixTaille" id="tvetements" value="taille_vetements">
+                        <label class="form-check-label">Vetements</label>
+                      </div>
+                      <div class="form-check form-check-inline">
+                        <input class="form-check-input" type="radio" name="choixTaille" id="tautre" value="autre_taille">
+                        <label class="form-check-label">Autre</label>
+                      </div>
+                    </div>
+                    <div class="form-group">
+                        <div id="taille_vetements">
+                        <select class="wide form-control" name="taille">
+                            <option selected>Taille Vetements</option>
+                            <optgroup label="vetements" data-icon="fa fa-user-secret">
+                                <option value="S">S</option>
+                                <option value="XS">XS</option>
+                                <option value="M">M</option>
+                                <option value="L">L</option>
+                                <option value="XL">XL</option>
+                                <option value="XXL">XXL</option>
+                                <option value="XXXL">XXXL</option>
+                                <option value="Autre">Autre</option>
+                            </optgroup>
+                        </select>
+                        </div>
+                        <div id="taille_chaussure">
+                        <select id="taille_chaussure" class="wide form-group" name="taille">
+                            <optgroup label="Chaussure">
+                                <option>Taille Chaussure</option>
+                                <option value="12-14">12-14</option>
+                                <option value="14-16">14-16</option>
+                                <option value="16-18">16-18</option>
+                                <option value="18-20">18-20</option>
+                                <option value="20-22">20-22</option>
+                                <option value="22-24">22-24</option>
+                                <option value="24-26">24-26</option>
+                                <option value="26-28">26-28</option>
+                                <option value="26-30">28-30</option>
+                                <option value="30-32">30-32</option>
+                                <option value="32-34">32-34</option>
+                                <option value="34-36">34-36</option>
+                                <option value="36-38">36-38</option>
+                                <option value="38-40">38-40</option>
+                                <option value="40-42">40-42</option>
+                                <option value="42-44">42-44</option>
+                                <option value="44-46">44-46</option>
+                                <option value="Autre">Autre</option>
+                            </optgroup>
+                        </select>
+                        </div>
+                        <div id="autre_taille">
+                        <select class="wide form-control" name="taille">
+                            <option>Autre Taille</option>
+                            <optgroup label="Parfum ou autre">
+                                <option value="Petit">Petit</option>
+                                <option value="Grand">Grand</option>
+                                <option value="Autre">Autre</option>
+                            </optgroup>
+                            <optgroup label="Poids">
+                                <option value="0-2Kg">O-2Kg</option>
+                                <option value="2-4Kg">2-4Kg</option>
+                                <option value="4-6Kg">4-6Kg</option>
+                                <option value="6-8Kg">6-8Kg</option>
+                                <option value="8-10Kg">8-10Kg</option>
+                                <option value="+10Kg">+10Kg</option>
+                                <option value="+20Kg">+20Kg</option>
+                                <option value="Autre">Autre</option>
+                            </optgroup>
+                            <optgroup label="Bague">
+                                <option value="14.1-14.9mm">14.1-14.9mm</option>
+                                <option value="15.1-15.9mm">15.1-15.9mm</option>
+                                <option value="16.1-16.9mm">16.1-16.9mm</option>
+                                <option value="17.1-17.9mm">17.1-17.9mm</option>
+                                <option value="Ajustable">Ajustable</option>
+                            </optgroup>
+                            <optgroup label="Maison" data-icon="fa fa-home">
+                                <option value="Petit Terrain">Petit Terrain</option>
+                                <option value="Grand Terrain">Grand Terrain</option>
+                                <option value="Appartement">Appartement</option>
+                                <option value="Chambres + Salon">Chambres + Salon</option>
+                                <option value="Chambres + Salon + Cuisine">Chambres + Salon + Cuisine</option>
+                                <option value="Autre">Autre</option>
+                            </optgroup>
+                        </select>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-6">
+                    <div class="form-group" id="marque">
+                    <label>Marque</label><br>
+                    <div class="form-check form-check-inline">
+                        <input class="form-check-input" type="radio" name="choixMarque" id="mvetements" value="marque_vetements">
+                        <label class="form-check-label">Vetements <i class="fa fa-male"></i></label>
+                      </div>
+                      <div class="form-check form-check-inline">
+                        <input class="form-check-input" type="radio" name="choixMarque" id="melectronique" value="marque_electronique">
+                        <label class="form-check-label">Electronique <i class="fa fa-television"></i></label>
+                      </div>
+                      <div class="form-check form-check-inline">
+                        <input class="form-check-input" type="radio" name="choixMarque" id="mvoiture" value="marque_voiture">
+                        <label class="form-check-label">Voiture <i class="fa fa-car"></i></label>
+                      </div>
+                    </div>
+                    <div class="form-group">
+                        <div id="marque_vetements">
+                        <select name="marque" class="form-control wide" name="marque">
+                            <option>Marque vetements</option>
+                            <optgroup label="vetements" data-icon="fa fa-user-secret">
+                            <option value="Nike">Nike</option>
+                            <option value="Adidas">Adidas</option>
+                            <option value="Balenciaga">Balenciaga</option>
+                            <option value="NB">New Balance</option>
+                            <option value="Lacoste">Lacoste</option>
+                            <option value="Polo">Polo</option>
+                            <option value="Fila">Fila</option>
+                            <option value="Puma">Puma</option>
+                            <option value="Gucci">Gucci</option>
+                            <option value="Vans">Vans</option>
+                            <option value="Calvin Klein">Calvin Klein</option>
+                            <option value="Chanel">Chanel</option>
+                            <option value="Converse">Converse</option>
+                            <option value="Levi's">Levi's</option>
+                            <option value="Vogue">Vogue</option>
+                            <option value="Tommy Hilfiger">Tommy Hilfiger</option>
+                            <option value="dolce gabbana">D-G</option>
+                            <option value="Ascis">Ascis</option>
+                            <option value="Louis Vuitton">Louis Vuitton</option>
+                            <option value="Autre">Autre</option>
+                            </optgroup>
+                        </select>
+                        </div>
+                        <div id="marque_electronique">
+                        <select class="wide form-group" name="marque">
+                            <option>Marque Electronique</option>
+                            <optgroup label="Electronique" data-icon="fa fa-television">
+                            <option value="Universel">Universel</option>
+                            <option value="Apple">Apple|Iphone</option>
+                            <option value="Tecno">Tecno</option>
+                            <option value="Samsung">Samsung</option>
+                            <option value="Nokia">Nokia</option>
+                            <option value="Itel">Itel</option>
+                            <option value="Sony">Sony</option>
+                            <option value="Huawei">Huawei</option>
+                            <option value="Asus">Asus</option>
+                            <option value="Alcatel">Alcatel</option>
+                            <option value="ZTE">ZTE</option>
+                            <option value="LG">LG</option>
+                            <option value="Wiko">Wiko</option>
+                            <option value="Dell">Dell</option>
+                            <option value="Hp">Hp</option>
+                            <option value="Motorola">Motorola</option>
+                            <option value="Htc">Htc</option>
+                            <option value="BlackBerry">BlackBerry</option>
+                            <option value="Xioami">Xioami</option>
+                            <option value="Philips">Philips</option>
+                            <option value="Sharp">Sharp</option>
+                            <option value="Siesmens">Siesmens</option>
+                            <option value="Vodafone">Vodafone</option>
+                            <option value="Sagem">Sagem</option>
+                            <option value="Autre">Autre</option>
+                            </optgroup>
+                        </select>
+                        </div>
+                        <div id="marque_voiture">
+                        <select class="wide form-group" name="marque">
+                            <option>Marque Voiture</option>
+                            <optgroup label="Voitures" data-icon="fa fa-car">
+                            <option value="Audi">Audi</option>
+                            <option value="Jeep">Jeep</option>
+                            <option value="Peugeot">Peugeot</option>
+                            <option value="Kia">Kia</option>
+                            <option value="Hyndai">Hyndai</option>
+                            <option value="Bentley">Bentley</option>
+                            <option value="Citroen">Citroen</option>
+                            <option value="Renault">Renault</option>
+                            <option value="Volkswagen">Volkswagen</option>
+                            <option value="OPEL">OPEL</option>
+                            <option value="Buggati">Buggati</option>
+                            <option value="Nissan">Nissan</option>
+                            <option value="Toyota">Toyota</option>
+                            <option value="Suzuki">Suzuki</option>
+                            <option value="Mercedes-Bnez">Mercedes-Bnez</option>
+                            <option value="Volvo">Volvo</option>
+                            <option value="Ford">Ford</option>
+                            <option value="Smart">Smart</option>
+                            </optgroup>
+                        </select>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-6">
+                <div class="form-group">
+                    <label>Couleur</label><br>
+                    <select name="couleur" class="form-group wide">
+                        <option>Choisir la couleur</option>
+                        <option value="blanc">Blanc</option>
+                        <option value="noir">Noir</option>
+                        <option value="rouge">Rouge</option>
+                        <option value="bleue">Bleu</option>
+                        <option value="jaune">Jaune</option>
+                        <option value="vert">Vert</option>
+                        <option value="marron">Marron</option>
+                        <option value="rose">Rose</option>
+                        <option value="gris">Gris</option>
+                        <option value="orange">Orange</option>
+                        <option value="violet">Violet</option>
+                        <option value="multicouleur">Multicouleur</option>
+                    </select>
+                </div>
+
+            </div> 
+        </div> 
+        <div class="row">
+            <div class="col-md-6">
+                <label>Possibilité d'echange avec un autre produit</label>
+                <div class="form-control">
+                    <input type="checkbox" name="echange" value="1"> <label>Oui</label>
+                </div>
+            </div>
+            <div class="col-md-6">
+                <div class="form-group">
+                    <label>Etat du produit</label><br>
+                    <select name="etat" class="wide form-control">
+                        <option>Choisir l'état</option>
+                        <option value="Neuf+Etiquette">Neuf + Etiquette</option>
+                        <option value="Neuf">Neuf</option>
+                        <option value="Bon état">Bon état</option>
+                        <option value="Deuxieme main">Deuxieme main</option>
+                    </select>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-6">
+                <div class="form-group">
+                    <label>Description du produit</label>
+                    <textarea class="form-control" rows="3" name="description"></textarea>
+                </div>
+            </div>
+            <div class="col-md-6">
+                <div class="form-group container">
+                    <input type="submit" class="btn btn-outline-warning" value="Poster votre produit">
+                </div>
+            </div>
+        </div>
+        </div>
+    </form>
+        <div class="col-md-2">
+            <img src="{% static 'produits/tof.jpg' %}" class="img-fluid">
+        </div>
+    </div>
+    <!-- end row -->
+</div>
+{% endblock content %}

@@ -1,0 +1,141 @@
+{% extends 'membres/base.html' %}
+{% load static %}
+{% block content %}
+<div class="container mt-4">
+    <div class="row justify-content-center">
+        <div class="col-md-3 mx-auto col-sm-12">
+            <form method="POST" action="{% url 'monprofil' %}" enctype="multipart/form-data">
+            {% csrf_token %}
+            <div class="ml-2 avatar-wrapper">
+            {% if profil.Photo %}
+            <img class="profile-pic" src="{{ profil.Photo.url }}">
+            {% else %}
+            <img class="profile-pic" src="{% static 'comptes/images/default-avatar.png' %}" />
+            {% endif %}
+	        <div class="upload-button">
+		    <i class="fa fa-arrow-circle-up" aria-hidden="true"></i>
+	        </div>
+            <input class="file-upload" name="photo" type="file" accept="image/*"/>
+            </div>
+            <div class="mt-2">
+                <p style="text-align: center;">Changer votre photo</p>
+            </div>
+            <div class="card mt-2 shadow">
+                <div class="card-body">
+                    <div class="h5">{{ user.username }}</div>
+                    <div class="h7 text-muted"><span class="text-warning">Nom complet :</span><br>
+                     {{ user.first_name}} {{ user.last_name}} </div>
+                </div>
+                <ul class="list-group list-group-flush">
+                    <li class="list-group-item">
+                        <div class="h6 text-muted">Abonnement</div>
+                        <div class="h5">342</div>
+                    </li>
+                    <li class="list-group-item">
+                        <div class="h6 text-muted">Abonné</div>
+                        <div class="h5">67</div>
+                    </li>
+                    <li class="list-group-item">Vestibulum at eros</li>
+                </ul>
+            </div>
+        </div>
+        <!-- end upload tof -->
+        <div class="col-md-8">
+            <div class="container shadow pt-2 mt-1">
+                <h5>
+                    Informations
+                    <button class="btn btn-warning btn-xs pull-right" type="submit">save</button>
+                </h5>
+                <div class="row mt-3">
+                    <div class="form-group col-sm-6">
+                        <label>Nom</label>
+                        <input type="text" class="form-control" value="{{ user.last_name }}" name="lastname">
+                    </div>
+                    <div class="form-group col-sm-6">
+                        <label>Prénom</label>
+                        <input type="text" class="form-control" value="{{user.first_name}}" name="firstname">
+                    </div>
+                    <div class="form-group col-sm-6">
+                        <label>E-mail</label>
+                        <input type="email" class="form-control" value="{{ user.email }}" name="email">
+                    </div>
+                    <div class="form-group col-sm-6">
+                        <label>Nom d'utilisateur</label>
+                        <input type="text" class="form-control" value="{{ user.username }}" name="username">
+                    </div>
+                </div><!-- row in col-md-8 -->
+            </div>
+            <!-- info utile -->
+            <div class="container pt-2 shadow mt-3">
+                <h5 class="page-title">
+                    Adresse
+                    <button class="btn btn-warning btn-xs pull-right" type="submit">save</button>
+                </h5>
+            
+                <div class="row mt-3">
+                    <div class="form-group col-sm-6">
+                        <label>Adresse 1</label>
+                        <input type="text" class="form-control" value="{{ profil.Adresse1 }}" name="adresse1">
+                    </div>
+            
+                    <div class="form-group col-sm-6">
+                        <label>Adresse 2</label>
+                        <input type="text" class="form-control" value="{{ profil.Adresse2 }}" name="adresse2">
+                    </div>
+            
+                    <div class="form-group col-sm-6">
+                        <label>Région</label><br>
+                        <select name="region" id="region" class="form-group">
+                            <option value="Dakar">Dakar</option>
+                            <option value="Thiès">Thiès</option>
+                            <option value="Diourbel">Diourbel</option>
+                            <option value="Louga">Louga</option>
+                            <option value="Saint-Louis">Saint-Louis</option>
+                            <option value="Kaolack">Kaolack</option>
+                            <option value="Fatick">Fatick</option>
+                            <option value="Matam">Matam</option>
+                            <option value="Kaffrine">Kaffrine</option>
+                            <option value="Sédhiou">Sédhiou</option>
+                            <option value="Kolda">Kolda</option>
+                            <option value="Tambacounda">Tambacounda</option>
+                            <option value="Kédougou">Kédougou</option>
+                            <option value="Ziguinchor">Ziguinchor</option>
+                        </select>
+                    </div> 
+            
+                    <div class="form-group col-sm-6">
+                        <label>Téléphone</label>
+                        <input type="phone" class="form-control" value="{{ profil.Telephone }}" name="telephone">
+                    </div>
+                </div><!-- /.row -->
+            </div>
+            <!-- End Adresse -->
+            <div class="shadow mt-3 container pt-2">
+                <h5>
+                    Supplémentaire
+                    <button class="btn btn-warning btn-xs pull-right" type="submit">save</button>
+                </h5>
+                <div class="form-horizontal">
+                    <div class="form-group mb-3 mt-3">
+                        <label class="col-sm-6 control-label">Lien de votre profil (facebook,Twitter,Instagram)</label>
+                        <div class="col-sm-9">
+                            <input type="text" class="form-control" placeholder="https://www.facebook.com/name.name.1" value="{{ profil.Link }}" name="link">
+                        </div>
+                    </div>    
+                </div>
+                <div class="form-horizontal">
+                    <div class="form-group mb-3 mt-3">
+                        <label class="col-sm-2 control-label mb-3">Bio</label>
+                        <div class="col-sm-9 mb-3">
+                            <textarea name="bio" rows="3">{{ profil.Description }}</textarea>
+                        </div>
+                    </div>       
+                </div>
+            </div>
+            <!-- end social  -->
+        </div>
+    </div>
+    </form>
+    <!-- end row -->
+</div>
+{% endblock content %}
